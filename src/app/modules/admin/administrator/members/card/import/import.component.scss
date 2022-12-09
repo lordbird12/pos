@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+}
+
+.mat-dialog-container {
+    border-radius: 5px !important;
+}
+
+table td {
+    text-align: left;
+}
+
+.td-left {
+    width: 250px;
+}
+
+.bg-gray-50 {
+    background: #FEEDEE !important;
+    font-weight: bold !important;
+    padding: 5px;
+}
+
+.spinner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    /* Half the height */
+    margin-left: -250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add-asset {
+    border-radius: 5px !important;
+    background: #ffffff !important;
+    border: 2px solid #F43F5E !important;
+    color: #F43F5E !important;
+    width: 100% !important;
+}

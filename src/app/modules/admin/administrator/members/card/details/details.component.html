@@ -1,0 +1,295 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 max-h-160 overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex border-b flex-0 items-center justify-between h-16">
+        <div class="text-lg font-semibold uppercase pl-3">Approve translation</div>
+        <button mat-icon-button (click)="matDialogRef.close()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+
+    </div>
+    <!-- Card form -->
+    <form class="flex flex-col flex-0 items-start w-full p-6 sm:p-8 space-y-6 overflow-y-auto" [formGroup]="approveForm">
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <td class="text-left">
+                        Artwork Details
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th class="text-left">Asset Type</th>
+                    <th class="text-left">Season</th>
+                    <th class="text-left">Poster Size</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div *ngIf="selectedProduct != null" class="font-medium">
+                            <div *ngIf="selectedProduct.attributes.asset_type != null">
+                                {{selectedProduct.attributes.asset_type.data.attributes.name}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="selectedProduct != null" class="font-medium">
+                            {{selectedProduct.attributes.season}}
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="selectedProduct != null" class="font-medium">
+                            <ul>
+                                <li *ngFor="let asset_size of selectedProduct.attributes.assets.data">
+                                    {{asset_size.attributes.asset_size.data.attributes.size}}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th class="text-left">Lot</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div *ngIf="selectedProduct != null" class="font-medium">
+                            {{selectedProduct.attributes.lot}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <td class="text-left">
+                        List of Assets
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered mt-3">
+            <tbody>
+                <tr>
+                    <th class="text-left"></th>
+                    <th class="text-left">Asset code</th>
+                    <th class="text-left">Asset name</th>
+                </tr>
+                <ng-container *ngIf="selectedProduct != null">
+                    <ng-container *ngIf="selectedProduct.attributes.assets.data != null">
+                        <tr *ngFor="let asset of selectedProduct.attributes.assets.data; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{asset.attributes.asset_code}}</td>
+                            <td>
+                                {{asset.attributes.name}}
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <tr>
+
+            </tbody>
+        </table>
+        <div class="text-sm font-medium text-secondary">Original File</div>
+        <div class="flex flex-col mt-1 w-full border p-3" *ngIf="selectedProduct.attributes.brief_file.data">
+            <div class="flex items-center">
+                <div class="flex items-center justify-center w-14 h-14 rounded dark:text-red-50">
+                    <div class="relative">
+                        <mat-icon class="icon-size-10 text-current" svgIcon="iconsmind:file"></mat-icon>
+                        <div class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-green-600">
+                            XLS
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-auto ml-4 leading-none">
+                    <ng-container *ngIf="selectedProduct != null">
+                        <ng-container *ngIf="selectedProduct.attributes.brief_file.data != null">
+                            <div class="mt-2 font-medium">
+                                <input type="text" class="w-full" disabled value="{{selectedProduct.attributes.brief_file.data[0].attributes.name}}">
+                            </div>
+                            <div class="text-sm mt-2 font-medium text-secondary">
+                                Size : {{selectedProduct.attributes.brief_file.data[0].attributes.size}}
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+
+                </div>
+                <div class="flex items-end justify-end w-full mr-1">
+                    <mat-icon class="text-green-600 icon-size-4 ml-1" [svgIcon]="'heroicons_solid:arrow-narrow-down'">
+                    </mat-icon>
+                    <div class="text-lg leading-none">
+                        <a target="_blank" href="{{env_path+selectedProduct.attributes.brief_file.data[0].attributes.url.substring(1)}}" download="">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-sm font-medium text-secondary">Translation File</div>
+        <!-- <ng-container *ngFor="let file of selectedProduct.attributes.brief_translation_files.data; let i = index"> -->
+        <div class="flex flex-col mt-1 w-full border p-3">
+            <div class="flex items-center">
+                <div class="flex items-center justify-center w-14 h-14 rounded dark:text-red-50">
+                    <div class="relative">
+                        <mat-icon class="icon-size-10 text-current" [svgIcon]="'iconsmind:file'"></mat-icon>
+
+                        <div *ngIf="selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.png' ||
+                        selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.ppt' ||
+                        selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.pptx' ||
+                        selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.pdf' ||
+                        selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.jpg'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-red-600">
+                            {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext | uppercase}}
+                        </div>
+                        <div *ngIf="selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.xlsx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-green-600">
+                            {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext | uppercase}}
+                        </div>
+                        <div *ngIf="selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.xls'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-green-600">
+                            {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext | uppercase}}
+                        </div>
+                        <div *ngIf="selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.docx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-blue-600">
+                            {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext | uppercase}}
+                        </div>
+                        <div *ngIf="selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext === '.pptx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-red-600">
+                            {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.ext | uppercase}}
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-auto ml-4 leading-none">
+                    <ng-container *ngIf="selectedProduct != null">
+                        <ng-container *ngIf="selectedProduct.attributes.brief_translation_files.data != null">
+                            <div class="mt-2 font-medium">
+                                {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.name}}
+                            </div>
+                            <div class="text-sm mt-2 font-medium text-secondary">
+                                Size : {{selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.size}}
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                </div>
+                <div class="flex items-end justify-end w-full mr-1">
+                    <mat-icon class="text-green-600 icon-size-4 ml-1" [svgIcon]="'heroicons_solid:arrow-narrow-down'">
+                    </mat-icon>
+                    <div class="text-lg leading-none">
+                        <a target="_blank" href="{{env_path+selectedProduct?.attributes.brief_translation_files.data[selectedProduct?.attributes.brief_translation_files.data.length-1]?.attributes.file?.data?.attributes.url.substring(1)}}" download="">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </ng-container> -->
+        <div class="flex flex-col w-full">
+            <mat-form-field class="flex-auto">
+                <mat-label>Translation Cost</mat-label>
+                <input class="text-right" [formControlName]="'translation_cost'" type="text" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-col w-full" *ngIf="hasReject == true">
+            <mat-form-field class="flex-auto">
+                <mat-label>Reject Reason </mat-label>
+                <input [formControlName]="'reject'" matInput>
+            </mat-form-field>
+        </div>
+        <ng-container *ngIf="selectedProduct.attributes.brief_translation_files.data">
+            <div class="text-sm font-medium text-secondary">Reject List</div>
+            <ng-container *ngIf="selectedProduct.attributes.brief_translation_files.data.length > 1">
+                <ng-container *ngFor="let transfile of selectedProduct.attributes.brief_translation_files.data; let i = index">
+                    <div class="flex flex-col mt-1 w-full border p-3" *ngIf="i != selectedProduct.attributes.brief_translation_files.data.length-1">
+                        <div class="flex items-center">
+                            <div class="flex items-center justify-center w-14 h-14 rounded dark:text-red-50">
+                                <div class="relative">
+                                    <mat-icon class="icon-size-10 text-current" [svgIcon]="'iconsmind:file'"></mat-icon>
+                                    <div *ngIf="transfile?.attributes.file.data?.attributes.ext === '.png' ||
+                                    transfile?.attributes.file.data?.attributes.ext === '.ppt' ||
+                        transfile?.attributes.file.data?.attributes.ext === '.pptx' ||
+                        transfile?.attributes.file.data?.attributes.ext === '.pdf' ||
+                        transfile?.attributes.file.data?.attributes.ext === '.jpg'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-red-600">
+                                        {{transfile?.attributes.file.data?.attributes.ext | uppercase}}
+                                    </div>
+                                    <div *ngIf="transfile?.attributes.file.data?.attributes.ext === '.xlsx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-green-600">
+                                        {{transfile?.attributes.file.data?.attributes.ext | uppercase}}
+                                    </div>
+                                    <div *ngIf="transfile?.attributes.file.data?.attributes.ext === '.xls'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-green-600">
+                                        {{transfile?.attributes.file.data?.attributes.ext | uppercase}}
+                                    </div>
+                                    <div *ngIf="transfile?.attributes.file.data?.attributes.ext === '.docx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-blue-600">
+                                        {{transfile?.attributes.file.data?.attributes.ext | uppercase}}
+                                    </div>
+                                    <div *ngIf="transfile?.attributes.file.data?.attributes.ext === '.pptx'" class="absolute left-0 bottom-0 px-0.5 rounded text-sm font-semibold leading-5 text-white bg-red-600">
+                                        {{transfile?.attributes.file.data?.attributes.ext | uppercase}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-auto ml-4 leading-none">
+                                <ng-container *ngIf="selectedProduct != null">
+                                    <ng-container *ngIf="selectedProduct.attributes.brief_translation_files.data != null">
+                                        <div class="mt-2 font-medium">
+                                            {{transfile?.attributes.file.data?.attributes.name}}
+                                        </div>
+                                        <div class="text-sm mt-2 font-medium text-secondary">
+                                            Size : {{transfile?.attributes.file.data?.attributes.size}}
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+
+
+                            </div>
+                            <div class="flex items-end justify-end w-full mr-1">
+                                <mat-icon class="text-green-600 icon-size-4 ml-1" [svgIcon]="'heroicons_solid:arrow-narrow-down'">
+                                </mat-icon>
+                                <div class="text-lg leading-none">
+                                    <a target="_blank" href="{{env_path+transfile?.attributes.file.data?.attributes.url.substring(1)}}" download="">Download</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-sm font-medium text-secondary" *ngIf="i != selectedProduct.attributes.brief_translation_files.data.length-1">Reason : {{transfile.attributes.reason != null ? transfile.attributes.reason:'-'}}
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </form>
+
+    <!-- Footer -->
+    <ng-container *ngIf="me.role.type !== 'authenticated' && selectedProduct.attributes.status === 'wait_approve_translation'">
+        <div class="flexw-full border-t mt-8 px-8 py-5 dark:bg-gray-700">
+
+            <div class="flex items-end justify-end w-full mr-1">
+                <div class="flex w-full p-3" *ngIf="hasReject == true">
+                    <mat-icon class="text-green-600 icon-size-4 ml-1" [svgIcon]="'heroicons_solid:upload'">
+                    </mat-icon>
+                    <input #fileInput type="file" (change)="onChange($event)" style="display:none" />
+                    <div (click)="fileInput.click()" class="text-lg leading-none">
+                        {{fileUpload}}
+                    </div>
+                </div>
+
+                <button *ngIf="hasReject != true" (click)="rejectApprove()" class="px-6 ml-4" mat-flat-button>
+                    <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+                    Reject
+                </button>
+                <button *ngIf="hasReject == true" (click)="cancelReject()" class="px-6 ml-4" mat-flat-button>
+                    <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+                    Cancel
+                </button>
+                <button *ngIf="hasReject == true" (click)="rejectApprove()" class="px-6 ml-4" [color]="'primary'" mat-flat-button>
+                    <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
+                    Reject
+                </button>
+                <button *ngIf="hasReject != true" class="px-6 ml-3 mat-success" mat-flat-button (click)="confirmApprove()">
+                    <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
+                    Approve
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+
+</div>

@@ -1,0 +1,59 @@
+<div class="flex flex-col flex-auto w-full overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex border-b flex-0 items-center justify-between h-16 pr-3 sm:pr-5">
+        <div class="text-lg font-semibold">นำเข้าข้อมูล</div>
+        <button mat-icon-button (click)="matDialogRef.close()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+
+    </div>
+
+    <!-- Card form -->
+    <form class="flex flex-col items-start w-full mt-8 space-y-6 overflow-y-auto" [formGroup]="cardForm">
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <td class="td-left">
+                        <input #fileInput type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onChange($event)" style="display:none" />
+                        <button (click)="fileInput.click()" class="btn-none-bg" mat-flat-button>
+                            <mat-icon [svgIcon]="'heroicons_outline:cloud-upload'"></mat-icon>
+                            <span class="ml-2 mr-1"> เลือกไฟล์ </span>
+                        </button>
+                        <br>
+                        <a href="http://huawei-pos-gateway.ddns.net/api/public/example.xlsx" download>ตัวอย่างไฟล์</a>
+                    </td>
+                    <td colspan="3" class="td-left bg-gray-50">Error on row : {{row_error}}</td>
+                </tr>
+                <tr *ngIf="rows_error">
+                    <td colspan="4" class="td-lef">
+                        <hr>
+                        <h4>Error records</h4>
+                        <table class="table table-bordered" style="height:240px !important;">
+                            <tbody>
+
+                                <ng-container *ngFor="let err of rows_error; let i = index">
+                                    <tr>
+                                        <td class="td-left">{{err}}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-end border-t mt-8 pt-5 dark:bg-gray-700">
+        <button (click)="matDialogRef.close()" class="ml-4 btn-none-bg" mat-flat-button>
+            <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+            ยกเลิก
+        </button>
+        <!-- <button class="px-6 ml-3" mat-flat-button [color]="'primary'" (click)="importData()">
+            <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
+            ยืนยัน
+        </button> -->
+    </div>
+</div>
