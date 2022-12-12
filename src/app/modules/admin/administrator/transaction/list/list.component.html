@@ -1,7 +1,8 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
         <!-- Loader -->
         <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
@@ -33,6 +34,20 @@
         <!-- Products list -->
         <div class="flex flex-col flex-auto p-5 overflow-hidden sm:overflow-y-auto">
             <!-- Products list -->
+            <div class="flex items-center justify-end">
+                <mat-form-field class="w-1/4">
+                    <mat-label>Choose a date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate [formControl]="start" placeholder="Start date">
+                        <input matEndDate [formControl]="end" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <button mat-fab class="mx-5" (click)="rerender()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
             <div class="flex flex-col flex-auto p-5 overflow-hidden sm:overflow-y-auto ">
                 <table datatable [dtOptions]="dtOptions" class="table row-border hover">
                     <thead>
@@ -51,15 +66,22 @@
                     <tbody *ngIf="dataRow?.length != 0">
                         <tr *ngFor="let item of dataRow; let i = index">
                             <td style="width: 5%;">{{ pages.begin + (i + 1) }}</td>
-                            <td style="width: 15%;">{{ item.member.fname }}&nbsp;{{ item.member.fname }}&nbsp; ({{ item.member.member_id }})</td>
+                            <td style="width: 15%;">{{ item.member.fname }}&nbsp;{{ item.member.fname }}&nbsp; ({{
+                                item.member.member_id }})</td>
                             <td>{{ item.refno }}</td>
                             <td>{{ item.date }}</td>
                             <td>{{ item.time }}</td>
                             <td>{{ item.qty }}</td>
                             <td>
-                                <span class="bg-green-100 text-green-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900" *ngIf="item.status === 'finish'"> อนุมัติแล้ว</span>
-                                <span class="bg-red-100 text-red-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900" *ngIf="item.status === 'No'"> ไม่อนุมัติ</span>
-                                <span class="bg-yellow-100 text-yellow-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900" *ngIf="item.status === 'wait'"> รอการอนุมัติ</span>
+                                <span
+                                    class="bg-green-100 text-green-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"
+                                    *ngIf="item.status === 'finish'"> อนุมัติแล้ว</span>
+                                <span
+                                    class="bg-red-100 text-red-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900"
+                                    *ngIf="item.status === 'No'"> ไม่อนุมัติ</span>
+                                <span
+                                    class="bg-yellow-100 text-yellow-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
+                                    *ngIf="item.status === 'wait'"> รอการอนุมัติ</span>
                             </td>
                             <td>{{ item.created_at }}</td>
                             <!-- <td style="width: 15%;">

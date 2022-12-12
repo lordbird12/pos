@@ -93,7 +93,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        this.loadTable();
+        // this.loadTable();
         // this._Service.getBranch().subscribe((resp: any) => {
         //     this.dataRow = resp.data;
         //     this.dataSource = new MatTableDataSource(this.dataRow)
@@ -165,7 +165,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 datasets: [
                     {
                         label: 'รายการเดินบัญชี',
-                        //  lineTension: 0.2, 
+                        //  lineTension: 0.2,
                         fill: false,
                         backgroundColor: 'rgba(75,192,192,0.4)',
                         borderColor: 'rgba(75,192,192,1)',
@@ -218,51 +218,9 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
     ngAfterViewInit(): void {
-        this.barChartMethod();
-        this.doughnutChartMethod();
+        // this.barChartMethod();
+        // this.doughnutChartMethod();
         this.lineChartMethod();
-        // if (this._sort && this._paginator) {
-        //     // Set the initial sort
-        //     this._sort.sort({
-        //         id: 'id',
-        //         start: 'asc',
-        //         disableClear: true
-        //     });
-
-        //     // Mark for check
-        //     this._changeDetectorRef.markForCheck();
-
-        //     // If the user changes the sort order...
-        //     this._sort.sortChange
-        //         .pipe(takeUntil(this._unsubscribeAll))
-        //         .subscribe(() => {
-        //             // Reset back to the first page
-        //             this._paginator.pageIndex = 0;
-
-        //             // Close the details
-        //             this.closeDetails();
-        //         });
-
-        //     // Get products if sort or page changes
-        //     merge(this._sort.sortChange, this._paginator.page).pipe(
-        //         switchMap(() => {
-        //             this.closeDetails();
-        //             this.isLoading = true;
-        //             return this._Service.getProducts(
-        //                 this._paginator.pageIndex + 1,
-        //                 this._paginator.pageSize,
-        //                 this._sort.active,
-        //                 this._sort.direction,
-        //                 this.filterForm.value?.searchInputControl,
-        //                 this.filterForm.value?.asset_type == 'default' ? '' : this.filterForm.value?.asset_type,
-        //                 this.supplierId
-        //             );
-        //         }),
-        //         map(() => {
-        //             this.isLoading = false;
-        //         })
-        //     ).subscribe();
-        // }
     }
 
     /**

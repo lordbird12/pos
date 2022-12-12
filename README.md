@@ -1,8 +1,3 @@
-[![Quality Gate Status](https://facgure-code-quality.southeastasia.cloudapp.azure.com/api/project_badges/measure?project=facgure_uq-instore-frontend_AYBHxodYccQ7x5EhzSuw&metric=alert_status&token=76354d448b7d488e8999464997e16ab9daa12990)](https://facgure-code-quality.southeastasia.cloudapp.azure.com/dashboard?id=facgure_uq-instore-frontend_AYBHxodYccQ7x5EhzSuw)
-[![Security Rating](https://facgure-code-quality.southeastasia.cloudapp.azure.com/api/project_badges/measure?project=facgure_uq-instore-frontend_AYBHxodYccQ7x5EhzSuw&metric=security_rating&token=76354d448b7d488e8999464997e16ab9daa12990)](https://facgure-code-quality.southeastasia.cloudapp.azure.com/dashboard?id=facgure_uq-instore-frontend_AYBHxodYccQ7x5EhzSuw)
-
-# UqInstoreFrontend
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 ## Development server

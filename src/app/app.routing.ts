@@ -158,6 +158,32 @@ export const appRoutes: Route[] = [
                     },
                 ],
             },
+            {
+                path: 'admin',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/admin/admin.module'
+                            ).then((m) => m.AdminModule),
+                    },
+                ],
+            },
+            {
+                path: 'setting',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/pages/settings/settings.module'
+                            ).then((m) => m.SettingsModule),
+                    },
+                ],
+            },
 
             // 404 & Catch all
             {

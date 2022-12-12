@@ -17,10 +17,9 @@ import { SettingsPlanBillingComponent } from 'app/modules/admin/pages/settings/p
 import { SettingsNotificationsComponent } from 'app/modules/admin/pages/settings/notifications/notifications.component';
 import { SettingsTeamComponent } from 'app/modules/admin/pages/settings/team/team.component';
 import { settingsRoutes } from 'app/modules/admin/pages/settings/settings.routing';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ViewTypeDialogComponent } from './account/view-type-dialog/view-type-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PaymentComponent } from './payment/payment.component';
+import { SlipComponent } from './slip/slip.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
         SettingsPlanBillingComponent,
         SettingsNotificationsComponent,
         SettingsTeamComponent,
-        ViewTypeDialogComponent
+        WelcomeComponent,
+        PaymentComponent,
+        SlipComponent
     ],
     imports     : [
         RouterModule.forChild(settingsRoutes),
@@ -43,10 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatSidenavModule,
         MatSlideToggleModule,
         FuseAlertModule,
-        SharedModule,
-        MatTabsModule,
-        MatCheckboxModule,
-        MatDialogModule,
+        SharedModule
     ]
 })
 export class SettingsModule

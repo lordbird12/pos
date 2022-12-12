@@ -11,17 +11,34 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
+                title: 'สถิติ',
+                type: 'basic',
+                icon: 'heroicons_outline:chart-bar',
+                link: '/home/list',
+            },
+            {
                 title: 'รายชื่อสมาชิก',
                 type: 'basic',
                 icon: 'heroicons_outline:users',
                 link: '/member/list',
             },
-           
             {
                 title: 'รายการเติมเงิน',
                 type: 'basic',
                 icon: 'heroicons_outline:cash',
                 link: 'transaction/list'
+            },
+            {
+                title: 'รายการพนักงาน',
+                type: 'basic',
+                icon: 'heroicons_outline:user-group',
+                link: 'admin/list'
+            },
+            {
+                title: 'ตั้งค่า',
+                type: 'basic',
+                icon: 'heroicons_outline:cog',
+                link: 'setting'
             },
         ],
     },

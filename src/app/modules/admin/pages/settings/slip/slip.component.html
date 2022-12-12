@@ -1,0 +1,137 @@
+<div class="w-full">
+
+    <div>
+        <div class="flex flex-auto mt-8">
+            <div class="flex w-1/2">
+                <img class="w-50 h-auto" [src]="imagePath">
+            </div>
+            <ngx-dropzone class="flex w-1/2" (change)="onSelect($event)">
+                <ngx-dropzone-label>Select Image</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Cancel
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="saveLogo()">Save
+            </button>
+        </div>
+    </div>
+
+    <form [formGroup]="companyForm">
+        <div class="w-full mt-8">
+            <!-- Name -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Company</mat-label>
+                    <input
+                        [formControlName]="'value'"
+                        matInput>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Cancel
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="saveCompany()">Save
+            </button>
+        </div>
+    </form>
+
+    <form [formGroup]="addressForm">
+        <div class="w-full mt-8">
+            <!-- Name -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                    <mat-label>Address</mat-label>
+                    <textarea
+                        matInput
+                        [formControlName]="'value'"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="5"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Cancel
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="saveAddress()">Save
+            </button>
+        </div>
+    </form>
+
+    <form [formGroup]="headerForm">
+        <div class="w-full mt-8">
+            <!-- Name -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Header</mat-label>
+                    <input
+                        [formControlName]="'value'"
+                        matInput>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Cancel
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="saveHeader()">Save
+            </button>
+        </div>
+    </form>
+
+</div>

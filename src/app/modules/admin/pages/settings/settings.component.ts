@@ -6,8 +6,8 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 @Component({
     selector       : 'settings',
     templateUrl    : './settings.component.html',
-    encapsulation  : ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    // encapsulation  : ViewEncapsulation.None,
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsComponent implements OnInit, OnDestroy
 {
@@ -15,7 +15,7 @@ export class SettingsComponent implements OnInit, OnDestroy
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
     panels: any[] = [];
-    selectedPanel: string = 'account';
+    selectedPanel: string = 'slip';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -40,10 +40,19 @@ export class SettingsComponent implements OnInit, OnDestroy
         // Setup available panels
         this.panels = [
             {
-                id         : 'account',
-                icon       : 'heroicons_outline:user-circle',
-                title      : 'Profile',
-                description: 'Manage your public profile and private information'
+                id         : 'welcome',
+                icon       : 'heroicons_outline:photograph',
+                title      : 'Welcome',
+            },
+            {
+                id         : 'slip',
+                icon       : 'heroicons_outline:document',
+                title      : 'Slip',
+            },
+            {
+                id         : 'payment',
+                icon       : 'heroicons_outline:cash',
+                title      : 'Payment',
             }
         ];
 

@@ -108,7 +108,6 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._Service.getById(this.Id).subscribe((resp: any) => {
             this.itemData = resp.data;
-            console.log(this.itemData);
             this.formData.patchValue({
                 member_id: this.itemData.member_id,
                 code: this.itemData.code,

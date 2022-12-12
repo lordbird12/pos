@@ -38,11 +38,17 @@ import { Service } from '../page.service';
 import { NewComponent } from '../new/new.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataTableDirective } from 'angular-datatables';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import * as moment from 'moment';
+
 @Component({
     selector: 'list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss'],
     animations: fuseAnimations,
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    ]
 })
 export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(DataTableDirective)
@@ -69,6 +75,10 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     flashMessage: 'success' | 'error' | null = null;
     isLoading: boolean = false;
     searchInputControl: FormControl = new FormControl();
+
+    start = new FormControl('');
+    end = new FormControl('');
+
     selectedProduct: any | null = null;
     filterForm: FormGroup;
     tagsEditMode: boolean = false;
@@ -90,7 +100,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService
-    ) {}
+    ) { }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -117,6 +127,9 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             ajax: (dataTablesParameters: any, callback) => {
                 // dataTablesParameters.status = 'Yes';
+                dataTablesParameters.date_start = moment(this.start?.value).format("YYYY-MM-DD");
+                dataTablesParameters.date_end = moment(this.end?.value).format("YYYY-MM-DD");
+
                 that._Service
                     .getPage(dataTablesParameters)
                     .subscribe((resp) => {
@@ -181,7 +194,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * After view init
      */
-    ngAfterViewInit(): void {}
+    ngAfterViewInit(): void { }
 
     /**
      * On destroy
@@ -234,5 +247,11 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     export(): void {
         window.open(environment.API_URL + 'api/export_member');
+    }
+
+    rerender(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload();
+        });
     }
 }
