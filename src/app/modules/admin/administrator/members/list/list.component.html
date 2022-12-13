@@ -48,6 +48,7 @@
                             <!-- <th>อีเมล</th> -->
                             <!-- <th>เพศ</th> -->
                             <th>กระเป๋าเงิน</th>
+                            <th>แผนก</th>
                             <th>สถานะ</th>
                             <th>วันที่สร้าง</th>
                             <th>จัดการ</th>
@@ -61,6 +62,7 @@
                             <!-- <td>{{ item.email }}</td> -->
                             <!-- <td>{{ item.sex }}</td> -->
                             <td> {{item.wallet | currency:" ":"symbol"}}</td>
+                            <td> {{item.department }}</td>
                             <td>
                                 <div *ngIf="item.status === 'Yes'"> เปิดการใช้งาน</div>
                                 <div *ngIf="item.status === 'No'"> ปิดการใช้งาน</div>

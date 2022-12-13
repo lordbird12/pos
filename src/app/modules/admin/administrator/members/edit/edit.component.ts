@@ -90,7 +90,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             code: ['', Validators.required],
             fname: '',
             lname: '',
-            // email: '',
+            department: '',
             status: '',
             transections: this._formBuilder.array([]),
         });
@@ -113,7 +113,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 code: this.itemData.code,
                 fname: this.itemData.fname,
                 lname: this.itemData.lname,
-                // email: this.itemData.email,
+                department: this.itemData.department,
                 transections: this.itemData.transections,
                 status: '',
             });
