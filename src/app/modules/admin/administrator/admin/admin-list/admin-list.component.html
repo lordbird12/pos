@@ -43,8 +43,8 @@
                                 <div *ngIf="item.status === 'No'"> ปิดการใช้งาน</div>
                             </td>
                             <td style="width: 5%;">
-                                <button mat-button (click)="edit(item.id)">
-                                    <mat-icon>visibility</mat-icon>
+                                <button (click)="edit(item.id)">
+                                    <mat-icon style="font-size:large;">visibility</mat-icon>
                                 </button>
                             </td>
                         </tr>

@@ -246,7 +246,13 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     export(): void {
-        window.open(environment.API_URL + 'api/export_member');
+        if (this.start.value != null && this.end.value != null) {
+            const start = moment(this.start.value).format("YYYY-MM-DD");
+            const end = moment(this.end.value).format("YYYY-MM-DD");
+            window.open(environment.API_URL + `api/export_transection?date_start=${start}&date_end=${end}`);
+        } else {
+            window.open(environment.API_URL + `api/export_transection?date_start=&date_end=`);
+        }
     }
 
     rerender(): void {
