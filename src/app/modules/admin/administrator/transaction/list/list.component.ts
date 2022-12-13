@@ -76,8 +76,8 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     isLoading: boolean = false;
     searchInputControl: FormControl = new FormControl();
 
-    start = new FormControl('');
-    end = new FormControl('');
+    start = new FormControl(null);
+    end = new FormControl(null);
 
     selectedProduct: any | null = null;
     filterForm: FormGroup;
@@ -127,8 +127,8 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             ajax: (dataTablesParameters: any, callback) => {
                 // dataTablesParameters.status = 'Yes';
-                dataTablesParameters.date_start = moment(this.start?.value).format("YYYY-MM-DD");
-                dataTablesParameters.date_end = moment(this.end?.value).format("YYYY-MM-DD");
+                dataTablesParameters.date_start = this.start?.value != null ? moment(this.start?.value).format("YYYY-MM-DD") : null;
+                dataTablesParameters.date_end = this.end?.value != null ? moment(this.end?.value).format("YYYY-MM-DD") : null;
 
                 that._Service
                     .getPage(dataTablesParameters)

@@ -10,12 +10,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'group',
         icon: 'heroicons_outline:home',
         children: [
-            {
-                title: 'สถิติ',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-bar',
-                link: '/home/list',
-            },
+            // {
+            //     title: 'สถิติ',
+            //     type: 'basic',
+            //     icon: 'heroicons_outline:chart-bar',
+            //     link: '/home/list',
+            // },
             {
                 title: 'รายชื่อสมาชิก',
                 type: 'basic',

@@ -109,13 +109,13 @@ export const appRoutes: Route[] = [
                         (m) => m.LandingModule
                     ),
             },
-            {
-                path: 'home',
-                loadChildren: () =>
-                    import('./modules/admin/pages/home/home.module').then(
-                        (m) => m.HomeModule
-                    ),
-            },
+            // {
+            //     path: 'home',
+            //     loadChildren: () =>
+            //         import('./modules/admin/pages/home/home.module').then(
+            //             (m) => m.HomeModule
+            //         ),
+            // },
             //user
             {
                 path: 'user',
