@@ -43,12 +43,12 @@
                                 <input matInput [formControlName]="'lname'">
                             </mat-form-field>
                         </div>
-                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                        <!-- <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
                             <mat-form-field class="w-full">
                                 <mat-label class="font-bold">อีเมล</mat-label>
                                 <input matInput [formControlName]="'email'">
                             </mat-form-field>
-                        </div>
+                        </div> -->
                         <mat-divider class="my-4"></mat-divider>
                         <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
                             <div class="w-full">
@@ -71,6 +71,9 @@
                                                 จำนวน
                                             </th>
                                             <th scope="col" class="py-3 px-6">
+                                                ช่องทาง
+                                            </th>
+                                            <th scope="col" class="py-3 px-6">
                                                 สถานะ
                                             </th>
                                         </tr>
@@ -86,6 +89,8 @@
                                             <td class="py-4 px-6">{{item.time}}</td>
 
                                             <td class="py-4 px-6">{{item.qty | currency:" ":"symbol"}}</td>
+
+                                            <td class="py-4 px-6">{{item.payment_type}}</td>
 
                                             <td class="py-4 px-6">
                                                 <div *ngIf="item.status === 'wait'"> รอตรวจสอบ</div>

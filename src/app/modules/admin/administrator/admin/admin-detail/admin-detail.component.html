@@ -53,6 +53,9 @@
                                                 จำนวน
                                             </th>
                                             <th scope="col" class="py-3 px-6">
+                                                ช่องทาง
+                                            </th>
+                                            <th scope="col" class="py-3 px-6">
                                                 สถานะ
                                             </th>
                                         </tr>
@@ -68,6 +71,8 @@
                                             <td class="py-4 px-6">{{item.time}}</td>
 
                                             <td class="py-4 px-6">{{item.qty | currency:" ":"symbol"}}</td>
+
+                                            <td class="py-4 px-6">{{item.payment_type}}</td>
 
                                             <td class="py-4 px-6">
                                                 <div *ngIf="item.status === 'wait'"> รอตรวจสอบ</div>
