@@ -27,4 +27,17 @@ export class AdminService {
       })
     );
   }
+
+  getTransactionPage(dataTablesParameters: any): Observable<DataTablesResponse> {
+    return this._httpClient
+        .post(
+            environment.API_URL + 'api/transection_page',
+            dataTablesParameters,
+        )
+        .pipe(
+            switchMap((response: any) => {
+                return of(response.data);
+            })
+        );
+}
 }

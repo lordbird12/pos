@@ -17,6 +17,7 @@ export class AdminDetailComponent implements OnInit {
   itemData: any = [];
   formData: FormGroup;
   Id: any;
+  transections: any[] = [];
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -31,7 +32,6 @@ export class AdminDetailComponent implements OnInit {
     this.formData = this._formBuilder.group({
       user_id: [''],
       name: [''],
-      transections: this._formBuilder.array([]),
     });
   }
 
@@ -41,13 +41,36 @@ export class AdminDetailComponent implements OnInit {
     this._Service.getAdmin(this.Id).subscribe(
       (resp: any) => {
         this.itemData = resp;
-        this.itemData.transections = [];
 
         this.formData.patchValue({
           user_id: resp.user_id,
           name: resp.name,
-          transections: [],
         });
+
+        this._Service.getTransactionPage({
+          "member_id": null,
+          "username": resp.user_id,
+          "date_start": null,
+          "date_end": null,
+          "status": null,
+          "draw": 1,
+          "columns": [],
+          "order": [
+              {
+                  "column": 0,
+                  "dir": "asc"
+              }
+          ],
+          "start": 0,
+          "length": 1000000,
+          "search": {
+              "value": "",
+              "regex": false
+          }
+      }).subscribe((res) => {
+        this.transections = res.data
+        this._changeDetectorRef.markForCheck()
+      });
       }
     )
   }
