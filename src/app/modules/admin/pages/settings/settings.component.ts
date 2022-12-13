@@ -15,7 +15,7 @@ export class SettingsComponent implements OnInit, OnDestroy
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
     panels: any[] = [];
-    selectedPanel: string = 'welcome';
+    selectedPanel: string = 'slip';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -39,11 +39,11 @@ export class SettingsComponent implements OnInit, OnDestroy
     {
         // Setup available panels
         this.panels = [
-            {
-                id         : 'welcome',
-                icon       : 'heroicons_outline:photograph',
-                title      : 'Welcome',
-            },
+            // {
+            //     id         : 'welcome',
+            //     icon       : 'heroicons_outline:photograph',
+            //     title      : 'Welcome',
+            // },
             {
                 id         : 'slip',
                 icon       : 'heroicons_outline:document',
