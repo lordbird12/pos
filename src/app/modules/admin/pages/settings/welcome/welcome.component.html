@@ -1,16 +1,17 @@
 <div class="flex flex-col justify-center">
-
-    <div class="flex justify-center">
-        <img class="w-50 h-auto" [src]="imagePath">
-    </div>
-    <br>
-    <div class="w-full">
-        <ngx-dropzone class="justify-center" (change)="onSelect($event)">
-            <ngx-dropzone-label>Select Image</ngx-dropzone-label>
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
-                [removable]="true" (removed)="onRemove(f)">
-            </ngx-dropzone-image-preview>
-        </ngx-dropzone>
+    <div class="flex">
+        <div class="flex w-1/2 justify-center">
+            <img class="w-1/2" [src]="imagePath">
+        </div>
+        <br>
+        <div class="w-1/2">
+            <ngx-dropzone class="justify-center" (change)="onSelect($event)">
+                <ngx-dropzone-label>Select Image</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+        </div>
     </div>
 
     <!-- Divider -->
