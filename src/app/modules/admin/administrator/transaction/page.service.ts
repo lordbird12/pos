@@ -1,41 +1,26 @@
 import {
     HttpClient,
-    HttpRequest,
-    HttpHandler,
-    HttpEvent,
     HttpHeaders,
-    HttpInterceptor,
 } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
     BehaviorSubject,
-    filter,
     map,
     Observable,
     of,
     switchMap,
-    take,
     tap,
     throwError,
 } from 'rxjs';
 import {
-    AssetItem,
-    Store,
-    AssetType,
-    Chat,
     // PermissionProductDetailOSM,
     BranchPagination,
     BranchProduct,
-    StoreType,
-    AssetSize,
-    Supplier,
-    Division,
     DataUser,
     DataBank,
 } from './page.types';
 import { environment } from 'environments/environment';
-import { AssetCategory } from 'app/shared/asset-category';
 import { DataTablesResponse } from 'app/shared/datatable.types';
 // import { UserDetail } from '../user/user.types';
 const token = localStorage.getItem('accessToken') || null;
@@ -289,5 +274,13 @@ export class Service {
                     return of(response);
                 })
             );
+    }
+
+    getMachine() {
+        return this._httpClient.get(environment.API_URL + 'api/dopdrow_machine_no')
+    }
+
+    getAdmin() {
+        return this._httpClient.get(environment.API_URL + 'api/get_user')
     }
 }

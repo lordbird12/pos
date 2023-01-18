@@ -37,14 +37,28 @@
         <!-- Products list -->
         <div class="flex flex-col flex-auto p-5 overflow-hidden sm:overflow-y-auto">
             <!-- Products list -->
-            <div class="flex justify-end">
-                <mat-form-field class="w-1/4">
+            <div class="flex justify-end gap-4">
+                <mat-form-field class="w-1/5">
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate [formControl]="start" placeholder="Start date">
                         <input matEndDate [formControl]="end" placeholder="End date">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field class="w-1/5">
+                    <mat-select [formControl]="machine_no" placeholder="หมายเลขเครื่อง">
+                        <mat-option *ngFor="let machine of machines" [value]="machine.machine_no">
+                            {{machine.machine_no}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-1/5">
+                    <mat-select [formControl]="create_by" placeholder="แอดมิน">
+                        <mat-option *ngFor="let user of users" [value]="user.user_id">
+                            {{user.name}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <button mat-icon-button class="ml-3" (click)="rerender()">
                     <mat-icon>search</mat-icon>
@@ -61,7 +75,9 @@
                             <th>เวลา</th>
                             <th>จำนวนเงิน</th>
                             <th>ช่องทาง</th>
+                            <th>เลขเครื่อง</th>
                             <th>สถานะ</th>
+                            <th>สร้างโดย</th>
                             <th>วันที่สร้าง</th>
                             <!-- <th>จัดการ</th> -->
                         </tr>
@@ -76,6 +92,7 @@
                             <td>{{ item.time }}</td>
                             <td>{{ item.qty }}</td>
                             <td>{{ item?.card_type ?? 'Cash' }}</td>
+                            <td>{{ item?.machine_no }}</td>
                             <td>
                                 <span
                                     class="bg-green-100 text-green-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"
@@ -87,6 +104,7 @@
                                     class="bg-yellow-100 text-yellow-800 text-m font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
                                     *ngIf="item.status === 'wait'"> รอการอนุมัติ</span>
                             </td>
+                            <td>{{ item?.create_by }}</td>
                             <td>{{ item.created_at }}</td>
                             <!-- <td style="width: 15%;">
                                 <button mat-button (click)="edit(item.id)">

@@ -70,11 +70,16 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
     dataSource: MatTableDataSource<DataBranch>;
 
+    machines: any[] = [];
+    users: any[] = [];
+
     products$: Observable<any>;
     asset_types: AssetType[];
     flashMessage: 'success' | 'error' | null = null;
     isLoading: boolean = false;
     searchInputControl: FormControl = new FormControl();
+    machine_no: FormControl = new FormControl(null);
+    create_by: FormControl = new FormControl(null);
 
     start = new FormControl(null);
     end = new FormControl(null);
@@ -111,6 +116,18 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     ngOnInit(): void {
         this.loadTable();
+
+        this._Service.getMachine().subscribe(
+            (resp: any) => {
+                this.machines = resp.data;
+            }
+        );
+
+        this._Service.getAdmin().subscribe(
+            (resp: any) => {
+                this.users = resp.data;
+            }
+        );
     }
 
     pages = { current_page: 1, last_page: 1, per_page: 10, begin: 0 };
@@ -129,6 +146,8 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 // dataTablesParameters.status = 'Yes';
                 dataTablesParameters.date_start = this.start?.value != null ? moment(this.start?.value).format("YYYY-MM-DD") : null;
                 dataTablesParameters.date_end = this.end?.value != null ? moment(this.end?.value).format("YYYY-MM-DD") : null;
+                dataTablesParameters.machine_no = this.machine_no?.value ?? null;
+                dataTablesParameters.create_by = this.create_by?.value ?? null;
 
                 that._Service
                     .getPage(dataTablesParameters)
@@ -161,7 +180,9 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 { data: 'time' },
                 { data: 'qty' },
                 { data: 'payment_type' },
+                { data: 'machine_no' },
                 { data: 'status' },
+                { data: 'create_by' },
                 { data: 'created_at' },
                 // { data: 'actice', orderable: false },
             ],
@@ -247,12 +268,16 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     export(): void {
+        const machine_no = this.machine_no?.value ?? '';
+        const create_by = this.create_by?.value ?? '';
+
         if (this.start.value != null && this.end.value != null) {
             const start = moment(this.start.value).format("YYYY-MM-DD");
             const end = moment(this.end.value).format("YYYY-MM-DD");
-            window.open(environment.API_URL + `api/export_transection?date_start=${start}&date_end=${end}`);
+
+            window.open(environment.API_URL + `api/export_transection?date_start=${start}&date_end=${end}&machine_no=${machine_no}&create_by=${create_by}`);
         } else {
-            window.open(environment.API_URL + `api/export_transection?date_start=&date_end=`);
+            window.open(environment.API_URL + `api/export_transection?date_start=&date_end=&machine_no=${machine_no}&create_by=${create_by}`);
         }
     }
 
