@@ -48,6 +48,7 @@
                 </mat-form-field>
                 <mat-form-field class="w-1/5">
                     <mat-select [formControl]="machine_no" placeholder="หมายเลขเครื่อง">
+                        <mat-option value="">All</mat-option>
                         <mat-option *ngFor="let machine of machines" [value]="machine.machine_no">
                             {{machine.machine_no}}
                         </mat-option>
@@ -55,6 +56,7 @@
                 </mat-form-field>
                 <mat-form-field class="w-1/5">
                     <mat-select [formControl]="create_by" placeholder="แอดมิน">
+                        <mat-option value="">All</mat-option>
                         <mat-option *ngFor="let user of users" [value]="user.user_id">
                             {{user.name}}
                         </mat-option>
