@@ -46,10 +46,18 @@ export class AdminService {
     }
 
     updateAdmin(id: number, data: any) {
-        return this._httpClient.put(environment.API_URL + 'api/', data);
+        data = {
+            ...data,
+            id: +id,
+        }
+        return this._httpClient.post(environment.API_URL + 'api/update_user', data);
     }
 
     changePassword(id: number, data: any){
-        return this._httpClient.post(environment.API_URL + 'api/', data);
+        return this._httpClient.put(environment.API_URL + 'api/update_password_user/' + id, data);
+    }
+
+    deleteAdmin(id: number) {
+        return this._httpClient.delete(environment.API_URL + 'api/user/' + id);
     }
 }

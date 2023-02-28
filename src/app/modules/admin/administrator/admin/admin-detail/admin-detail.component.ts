@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/f
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { FuseValidators } from '@fuse/validators';
 import { AuthService } from 'app/core/auth/auth.service';
 import { Service } from '../../members/page.service';
 import { AdminService } from '../admin.service';
@@ -38,12 +39,15 @@ export class AdminDetailComponent implements OnInit {
         this.formData = this._formBuilder.group({
             user_id: ['', Validators.required],
             name: ['', Validators.required],
-            status: [true]
+            status: [true],
+            permission_id: ['']
         });
 
         this.changePasswordForm = this._formBuilder.group({
             password: '',
-            confirm_password: '',
+            passwordConfirm: '',
+        }, {
+            validators: FuseValidators.mustMatch('password', 'passwordConfirm')
         });
 
         this.Id = this._activatedRoute.snapshot.paramMap.get('id');
@@ -56,6 +60,7 @@ export class AdminDetailComponent implements OnInit {
                     user_id: resp.user_id,
                     name: resp.name,
                     status: resp.status == 'Yes' ? true : false,
+                    permission_id: +resp.permission_id,
                 });
 
                 this._Service.getTransactionPage({
@@ -96,13 +101,17 @@ export class AdminDetailComponent implements OnInit {
         });
 
         this._Service.updateAdmin(this.Id, this.formData.value).subscribe({
-            complete() {
+            complete:() => {
                 window.location.reload()
             },
         })
     }
 
     changePassword() {
+        if (this.changePasswordForm.invalid) {
+            return;
+        }
+
         this._Service.changePassword(this.Id, this.changePasswordForm.value).subscribe({
             complete() {
                 window.location.reload()
