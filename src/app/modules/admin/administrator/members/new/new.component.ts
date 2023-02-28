@@ -36,6 +36,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { sortBy, startCase } from 'lodash-es';
 import { AssetType, BranchPagination } from '../page.types';
 import { Service } from '../page.service';
+import { Location } from '@angular/common';
 // import { ImportOSMComponent } from '../card/import-osm/import-osm.component';
 
 @Component({
@@ -61,26 +62,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     supplierId: string | null;
     pagination: BranchPagination;
     public UserAppove: any = [];
-    // toppings: any = [
-    //     { id: 1, name: 'พระธรรมกาย' },
-    //     { id: 2, name: 'พระวิริยะ' },
-    //     { id: 3, name: 'พระมโนธรรม' },
-    // ];
-    bankData: any = [
-        { id: 1, name: 'KBANK' },
-        { id: 2, name: 'KTB' },
-        { id: 3, name: 'GSB' },
-        { id: 4, name: 'SCB' },
-        { id: 5, name: 'BBL' },
-        { id: 6, name: 'BAY' },
-        { id: 7, name: 'CITI' },
-        { id: 8, name: 'NBANK' },
-        { id: 9, name: 'GHB' },
-        { id: 10, name: 'SCIB' },
-        { id: 11, name: 'TMB' },
-    ];
 
-    toppings: any = [];
     /**
      * Constructor
      */
@@ -89,18 +71,11 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: FormBuilder,
         private _Service: Service,
-        private _matDialog: MatDialog,
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
-        private _authService: AuthService
+        private _authService: AuthService,
+        public location: Location,
     ) {
-        this.formData = this._formBuilder.group({
-            name: ['', Validators.required],
-            number: ['', Validators.required],
-            bank_of: '',
-            description: '',
-            approve: this._formBuilder.array([]),
-        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -112,35 +87,15 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     ngOnInit(): void {
         this.formData = this._formBuilder.group({
-            name: ['', Validators.required],
-            number: ['', Validators.required],
-            bank_of: '',
-            description: '',
-            approve: this._formBuilder.array([]),
+            member_id: ['', Validators.required],
+            code: ['', Validators.required],
+            fname: ['', Validators.required],
+            lname: ['', Validators.required],
+            department: [''],
+            status: [true],
         });
 
         this._changeDetectorRef.markForCheck();
-    }
-
-    approve(): FormArray {
-        return this.formData.get('approve') as FormArray;
-    }
-
-    NewUser(): FormGroup {
-        return this._formBuilder.group({
-            user_id: '',
-            remark: '-',
-        });
-    }
-
-    addUser(): void {
-        this.approve().push(this.NewUser());
-
-        // alert(1)
-    }
-
-    removeUser(i: number): void {
-        this.approve().removeAt(i);
     }
 
     /**
@@ -155,17 +110,17 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         // Unsubscribe from all subscriptions
     }
 
-    NewBank(): void {
+    submit(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
         // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
+        if (this.formData.invalid) {
+            return;
+        }
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title: 'เพิ่มบัญชีธนาคารใหม่',
-            message: 'คุณต้องการเพิ่มบัญชีธนาคารใหม่ใช่หรือไม่ ',
+            title: 'Create new member',
+            message: 'Are you sure to create this member? ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -174,12 +129,12 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             actions: {
                 confirm: {
                     show: true,
-                    label: 'ยืนยัน',
+                    label: 'OK',
                     color: 'primary',
                 },
                 cancel: {
                     show: true,
-                    label: 'ยกเลิก',
+                    label: 'Cancel',
                 },
             },
             dismissible: true,
@@ -189,66 +144,20 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
             if (result === 'confirmed') {
-                // console.log(this.formData.value);
-                this._Service.newBank(this.formData.value).subscribe({
+                this._Service.createMember(this.formData.value).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('bank/list').then(() => {});
+                        this._router.navigateByUrl('member/list').then(() => {});
                     },
                     error: (err: any) => {
-                        this._fuseConfirmationService.open({
-                            title: 'กรุณาระบุข้อมูล',
-                            message:
-                                'ไม่สามารถบันทึกข้อมูลได้กรุณาตรวจสอบใหม่อีกครั้ง',
-                            icon: {
-                                show: true,
-                                name: 'heroicons_outline:exclamation',
-                                color: 'warning',
-                            },
-                            actions: {
-                                confirm: {
-                                    show: false,
-                                    label: 'ยืนยัน',
-                                    color: 'primary',
-                                },
-                                cancel: {
-                                    show: false,
-                                    label: 'ยกเลิก',
-                                },
-                            },
-                            dismissible: true,
-                        });
+                        alert(JSON.stringify(err))
                     },
                 });
             }
         });
     }
+
     showFlashMessage(arg0: string) {
         throw new Error('Method not implemented.');
     }
 
-    CheckUserAppove(event, i): void {
-        let itemData = this.formData.value.approve;
-        // this.addUser()
-        if (event.checked === true) {
-            this.addUser();
-            this.UserAppove.push(event.source.value);
-            itemData[i] = {
-                user_id: event.source.value,
-                remark: '-',
-            };
-
-            if (this.UserAppove) {
-                this.formData.controls.approve.patchValue(itemData);
-            }
-        } else {
-            this.UserAppove = this.UserAppove.filter(function (
-                value,
-                index,
-                arr
-            ) {
-                return value != event.source.value;
-            });
-            this.removeUser(i);
-        }
-    }
 }

@@ -182,5 +182,11 @@ Z
     return this._httpClient.post<DataUser>(environment.API_URL + 'api/update_bank_trans', data, { headers: this.httpOptionsFormdata.headers });
   }
 
+  updateMember(id: number, data: any){
+    return this._httpClient.put(environment.API_URL + 'api/', data);
+  }
 
+  createMember(data: any) {
+    return this._httpClient.post(environment.API_URL + 'api/', data);
+  }
 }

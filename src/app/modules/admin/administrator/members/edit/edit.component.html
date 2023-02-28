@@ -43,13 +43,22 @@
                                 <input matInput [formControlName]="'lname'">
                             </mat-form-field>
                         </div>
-                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
-                            <mat-form-field class="w-full">
+                        <div class="flex flex-row w-full lg:w-2/4 sm:pl-8 gap-5 items-center">
+                            <mat-form-field class="w-1/2">
                                 <mat-label class="font-bold">แผนก</mat-label>
                                 <input matInput [formControlName]="'department'">
                             </mat-form-field>
+                            <div class="w-1/2">
+                                <mat-slide-toggle [formControlName]="'status'">ไม่ใช้งาน - ใช้งาน</mat-slide-toggle>
+                            </div>
                         </div>
                         <mat-divider class="my-4"></mat-divider>
+                        <div class="flex flex-col w-full items-end mb-5">
+                            <button class="ml-4 w-1/12" mat-flat-button (click)="submit()">
+                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                <span class="ml-2 mr-1">บันทึก</span>
+                            </button>
+                        </div>
                         <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
                             <div class="w-full">
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 heroicons_solid row-border hover">

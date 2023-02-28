@@ -11,19 +11,20 @@
         <!-- Actions -->
         <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <!-- Add product button -->
             <button class="ml-4" mat-flat-button [color]="'primary'" (click)="Import()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">นำเข้าข้อมูล</span>
             </button>
-
-            <!-- Add product button -->
 
             <button class="ml-4" mat-flat-button [color]="'accept'" (click)="export()">
                 <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
                 <span class="ml-2 mr-1">ส่งออกข้อมูล</span>
             </button>
 
+            <a class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['../new']" >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">เพิ่ม</span>
+            </a>
         </div>
     </div>
 

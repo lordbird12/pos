@@ -253,4 +253,6 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     export(): void {
         window.open(environment.API_URL + 'api/export_member');
     }
+
+    create() {}
 }

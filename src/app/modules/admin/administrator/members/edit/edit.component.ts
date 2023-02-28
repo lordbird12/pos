@@ -108,6 +108,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._Service.getById(this.Id).subscribe((resp: any) => {
             this.itemData = resp.data;
+
             this.formData.patchValue({
                 member_id: this.itemData.member_id,
                 code: this.itemData.code,
@@ -115,7 +116,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 lname: this.itemData.lname,
                 department: this.itemData.department,
                 transections: this.itemData.transections,
-                status: '',
+                status: this.itemData.status == 'Yes' ? true : false,
             });
         });
     }
@@ -141,12 +142,12 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approve().removeAt(i);
     }
 
-    discard(): void {}
+    discard(): void { }
 
     /**
      * After view init
      */
-    ngAfterViewInit(): void {}
+    ngAfterViewInit(): void { }
 
     /**
      * On destroy
@@ -195,7 +196,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 this._Service.update(this.formData.value, this.Id).subscribe({
                     next: (resp: any) => {
                         this.showFlashMessage('success');
-                        this._router.navigateByUrl('bank/list').then(() => {});
+                        this._router.navigateByUrl('bank/list').then(() => { });
                     },
                     error: (err: any) => {
                         this.formData.enable();
@@ -289,5 +290,17 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 user_id: this.UserAppove,
             });
         }
+    }
+
+    submit() {
+        this.formData.patchValue({
+            status: this.formData.value.status ? 'Yes' : 'No',
+        });
+
+        this._Service.updateMember(this.Id, this.formData.value).subscribe({
+            complete() {
+                window.location.reload();
+            },
+        });
     }
 }
