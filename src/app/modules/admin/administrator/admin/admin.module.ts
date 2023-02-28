@@ -36,6 +36,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { AdminListComponent } from './admin-list/admin-list.component';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
+import { AdminNewComponent } from './admin-new/admin-new.component';
 
 const pageRoute: Route[] = [
   {
@@ -54,6 +55,10 @@ const pageRoute: Route[] = [
               path: 'detail/:id',
               component: AdminDetailComponent,
           },
+          {
+              path: 'new',
+              component: AdminNewComponent,
+          },
     //       {
     //           path: 'print/:id',
     //           component: PrintComponent,
@@ -67,7 +72,8 @@ const pageRoute: Route[] = [
   declarations: [
     AdminComponent,
     AdminListComponent,
-    AdminDetailComponent
+    AdminDetailComponent,
+    AdminNewComponent
   ],
   imports: [
     RouterModule.forChild(pageRoute),

@@ -31,79 +31,113 @@
                                 <input matInput [formControlName]="'name'">
                             </mat-form-field>
                         </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-slide-toggle [formControlName]="'status'">ไม่ใช้งาน - ใช้งาน</mat-slide-toggle>
+                        </div>
                         <mat-divider class="my-4"></mat-divider>
-                        <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
-                            <div class="w-full">
-                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 heroicons_solid row-border hover">
-                                    <thead class="text-m text-gray-700 uppercase bg-gray-50 dark:bg-white-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="py-3 px-6 ">
-                                                ลำดับ
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                เลขอ้างอิง
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                วันที่
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                เวลา
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                จำนวน
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                ช่องทาง
-                                            </th>
-                                            <th scope="col" class="py-3 px-6">
-                                                สถานะ
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody *ngIf="this.transections.length != 0">
-                                        <tr *ngFor="let item of this.transections; let i = index" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                            <td class="py-4 px-6">{{ i+1 }}</td>
-
-                                            <td class="py-4 px-6">{{item.refno}}</td>
-
-                                            <td class="py-4 px-6">{{item.date}}</td>
-
-                                            <td class="py-4 px-6">{{item.time}}</td>
-
-                                            <td class="py-4 px-6">{{item.qty | currency:" ":"symbol"}}</td>
-
-                                            <td class="py-4 px-6">{{item.payment_type}}</td>
-
-                                            <td class="py-4 px-6">
-                                                <div *ngIf="item.status === 'wait'"> รอตรวจสอบ</div>
-                                                <div *ngIf="item.status === 'finish'"> สำเร็จ</div>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody *ngIf="this.transections.length == 0">
-                                        <tr>
-                                            <td colspan="4">No Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="flex flex-col w-full items-end mb-5">
+                            <button class="ml-4 w-1/12" mat-flat-button (click)="submit()">
+                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                <span class="ml-2 mr-1">บันทึก</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- button -->
-            <div class="flex items-center justify-end w-full border-t px-8 py-4">
-                <div class="flex items-center justify-end">
-                    <a class="ml-4" mat-flat-button routerLink="../../../admin/list">
-                        <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
-                        ย้อนกลับ
-                    </a>
+        </form>
+        <form class="flex flex-col mt-3 p-8 pb-4 bg-card shadow overflow-hidden ng-valid" [formGroup]="changePasswordForm">
+            <div class="flex flex-col sm:flex-row p-8">
+                <div class="w-full">
+                    <div class="flex flex-auto flex-wrap">
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">รหัสผ่านใหม่</mat-label>
+                                <input matInput [formControlName]="'password'">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">ยืนยันรหัสผ่านใหม่</mat-label>
+                                <input matInput [formControlName]="'confirm_password'">
+                            </mat-form-field>
+                        </div>
+                        <mat-divider class="my-4"></mat-divider>
+                        <div class="flex flex-col w-full items-end mb-5">
+                            <button class="ml-4 w-1/12" mat-flat-button (click)="changePassword()">
+                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                <span class="ml-2 mr-1">บันทึก</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
-        <pre>
-        </pre>
+        <div class="flex flex-col w-full lg:w-4/4 sm:pl-8 mt-5">
+            <div class="w-full">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 heroicons_solid row-border hover">
+                    <thead class="text-m text-gray-700 uppercase bg-gray-50 dark:bg-white-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="py-3 px-6 ">
+                                ลำดับ
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                เลขอ้างอิง
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                วันที่
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                เวลา
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                จำนวน
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                ช่องทาง
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                สถานะ
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="this.transections.length != 0">
+                        <tr *ngFor="let item of this.transections; let i = index" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <td class="py-4 px-6">{{ i+1 }}</td>
+
+                            <td class="py-4 px-6">{{item.refno}}</td>
+
+                            <td class="py-4 px-6">{{item.date}}</td>
+
+                            <td class="py-4 px-6">{{item.time}}</td>
+
+                            <td class="py-4 px-6">{{item.qty | currency:" ":"symbol"}}</td>
+
+                            <td class="py-4 px-6">{{item.payment_type}}</td>
+
+                            <td class="py-4 px-6">
+                                <div *ngIf="item.status === 'wait'"> รอตรวจสอบ</div>
+                                <div *ngIf="item.status === 'finish'"> สำเร็จ</div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="this.transections.length == 0">
+                        <tr>
+                            <td colspan="4">No Data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- button -->
+        <div class="flex items-center justify-end w-full border-t px-8 py-4">
+            <div class="flex items-center justify-end">
+                <button class="ml-4" mat-flat-button (click)="location.back()">
+                    <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+                    ย้อนกลับ
+                </button>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -188,5 +188,5 @@ Z
 
   createMember(data: any) {
     return this._httpClient.post(environment.API_URL + 'api/', data);
-  }
+}
 }

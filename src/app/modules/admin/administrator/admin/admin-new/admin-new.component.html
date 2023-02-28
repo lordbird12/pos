@@ -1,0 +1,113 @@
+<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    พนักงาน
+                </h2>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:p-10">
+        <form class="flex flex-col mt-3 p-8 pb-4 bg-card shadow overflow-hidden ng-valid" [formGroup]="formData">
+            <div class="flex flex-col sm:flex-row p-8">
+                <div class="w-full">
+                    <div class="flex flex-auto flex-wrap">
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">ชื่อผู้ใช้</mat-label>
+                                <input matInput [formControlName]="'user_id'">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">ชื่อพนักงาน</mat-label>
+                                <input matInput [formControlName]="'name'">
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label>รหัสผ่าน</mat-label>
+                                <input
+                                    id="password"
+                                    matInput
+                                    type="password"
+                                    [formControlName]="'password'"
+                                    #passwordField>
+                                <button
+                                    mat-icon-button
+                                    type="button"
+                                    (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                    matSuffix>
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        *ngIf="passwordField.type === 'password'"
+                                        [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        *ngIf="passwordField.type === 'text'"
+                                        [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                </button>
+                                <mat-error>
+                                    กรุณาระบุรหัสผ่าน
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label>ยืนยันรหัสผ่าน</mat-label>
+                                <input
+                                    id="password-confirm"
+                                    matInput
+                                    type="password"
+                                    [formControlName]="'passwordConfirm'"
+                                    #passwordConfirmField>
+                                <button
+                                    mat-icon-button
+                                    type="button"
+                                    (click)="passwordConfirmField.type === 'password' ? passwordConfirmField.type = 'text' : passwordConfirmField.type = 'password'"
+                                    matSuffix>
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        *ngIf="passwordConfirmField.type === 'password'"
+                                        [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        *ngIf="passwordConfirmField.type === 'text'"
+                                        [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                </button>
+                                <mat-error *ngIf="formData.get('passwordConfirm').hasError('required')">
+                                    กรุณาระบุยืนยันรหัสผ่าน
+                                </mat-error>
+                                <mat-error *ngIf="formData.get('passwordConfirm').hasError('mustMatch')">
+                                    รหัสผ่านไม่ตรงกัน
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-slide-toggle [formControlName]="'status'">ไม่ใช้งาน - ใช้งาน</mat-slide-toggle>
+                        </div>
+                        <mat-divider class="my-4"></mat-divider>
+                        <div class="flex flex-row w-full justify-end items-end mb-5">
+                            <button class="ml-4" mat-flat-button (click)="location.back()">
+                                <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+                                ย้อนกลับ
+                            </button>
+                            <button class="ml-4 w-1/12" mat-flat-button (click)="submit()">
+                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                <span class="ml-2 mr-1">บันทึก</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

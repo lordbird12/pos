@@ -6,38 +6,46 @@ import { Observable, of, switchMap } from 'rxjs';
 import { Admin } from './admin.type';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AdminService {
 
-  constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClient: HttpClient) { }
 
-  getAdminPage(dataTablesParameters: any): Observable<DataTablesResponse> {
-    return this._httpClient.post(environment.API_URL + 'api/user_page', dataTablesParameters).pipe(
-      switchMap((response: any) => {
-        return of(response.data);
-      })
-    );
-  }
-
-  getAdmin(id: any): Observable<Admin> {
-    return this._httpClient.get(environment.API_URL + 'api/user/' + id).pipe(
-      switchMap((response: any) => {
-        return of(response.data);
-      })
-    );
-  }
-
-  getTransactionPage(dataTablesParameters: any): Observable<DataTablesResponse> {
-    return this._httpClient
-        .post(
-            environment.API_URL + 'api/transection_page',
-            dataTablesParameters,
-        )
-        .pipe(
+    getAdminPage(dataTablesParameters: any): Observable<DataTablesResponse> {
+        return this._httpClient.post(environment.API_URL + 'api/user_page', dataTablesParameters).pipe(
             switchMap((response: any) => {
                 return of(response.data);
             })
         );
-}
+    }
+
+    getAdmin(id: any): Observable<Admin> {
+        return this._httpClient.get(environment.API_URL + 'api/user/' + id).pipe(
+            switchMap((response: any) => {
+                return of(response.data);
+            })
+        );
+    }
+
+    getTransactionPage(dataTablesParameters: any): Observable<DataTablesResponse> {
+        return this._httpClient
+            .post(
+                environment.API_URL + 'api/transection_page',
+                dataTablesParameters,
+            )
+            .pipe(
+                switchMap((response: any) => {
+                    return of(response.data);
+                })
+            );
+    }
+
+    updateAdmin(id: number, data: any) {
+        return this._httpClient.put(environment.API_URL + 'api/', data);
+    }
+
+    changePassword(id: number, data: any){
+        return this._httpClient.post(environment.API_URL + 'api/', data);
+    }
 }

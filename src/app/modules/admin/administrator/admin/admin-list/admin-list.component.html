@@ -8,7 +8,13 @@
         </div>
         <!-- Title -->
         <div class="text-4xl font-extrabold tracking-tight">รายการพนักงาน</div>
-
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <a class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['../new']" >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">เพิ่ม</span>
+            </a>
+        </div>
     </div>
 
     <!-- search -->
