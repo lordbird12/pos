@@ -41,6 +41,10 @@ export class AdminService {
             );
     }
 
+    createAdmin(data: any) {
+        return this._httpClient.post(environment.API_URL + 'api/user', data);
+    }
+
     updateAdmin(id: number, data: any) {
         return this._httpClient.put(environment.API_URL + 'api/', data);
     }
