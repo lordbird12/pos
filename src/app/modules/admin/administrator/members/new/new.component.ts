@@ -117,6 +117,9 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.formData.invalid) {
             return;
         }
+        // console.log(this.formData.value);
+
+        // return
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
             title: 'Create new member',
@@ -144,6 +147,11 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
             if (result === 'confirmed') {
+
+                this.formData.patchValue({
+                    status: this.formData.value.status ? "Yes" : "No"
+                })
+
                 this._Service.createMember(this.formData.value).subscribe({
                     next: (resp: any) => {
                         this._router.navigateByUrl('member/list').then(() => {});
