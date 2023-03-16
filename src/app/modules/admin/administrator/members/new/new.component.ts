@@ -152,7 +152,12 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
                     status: this.formData.value.status ? "Yes" : "No"
                 })
 
-                this._Service.createMember(this.formData.value).subscribe({
+                const data = {
+                    ...this.formData.value,
+                    ref: 'Web',
+                }
+
+                this._Service.createMember(data).subscribe({
                     next: (resp: any) => {
                         this._router.navigateByUrl('member/list').then(() => {});
                     },
