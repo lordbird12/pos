@@ -14,10 +14,9 @@
 
             <!-- Add product button -->
 
-            <!-- <button class="ml-4" mat-flat-button [color]="'accept'" (click)="export()">
-                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
-                <span class="ml-2 mr-1">ส่งออกข้อมูล</span>
-            </button> -->
+            <button class="ml-4" mat-flat-button [color]="'accept'" (click)="viewPdf()">
+                <span class="ml-2 mr-1">PDF Report</span>
+            </button>
             <button class="ml-4" mat-flat-button [color]="'accept'" (click)="export()">
                 <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
                 <span class="ml-2 mr-1">ส่งออกข้อมูล</span>
@@ -65,6 +64,9 @@
                 <button mat-icon-button class="ml-3" (click)="rerender()">
                     <mat-icon>search</mat-icon>
                 </button>
+                <!-- <button mat-flat-button class="ml-3" (click)="viewPdf()">
+                    PDF
+                </button> -->
             </div>
             <div class="flex flex-col flex-auto p-5 overflow-hidden sm:overflow-y-auto ">
                 <table datatable [dtOptions]="dtOptions" class="table row-border hover">

@@ -117,7 +117,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/th.json',
             },
             ajax: (dataTablesParameters: any, callback) => {
-                dataTablesParameters.status = 'Yes';
+                // dataTablesParameters.status = 'Yes';
                 that._Service
                     .getPage(dataTablesParameters)
                     .subscribe((resp) => {

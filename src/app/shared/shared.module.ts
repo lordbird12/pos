@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -11,6 +13,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
         ReactiveFormsModule,
         MatFormFieldModule,
         NgxDropzoneModule,
+        PdfViewerModule,
     ],
     exports: [
         CommonModule,
@@ -18,6 +21,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
         ReactiveFormsModule,
         MatFormFieldModule,
         NgxDropzoneModule,
+        PdfViewerModule,
     ]
 })
 export class SharedModule

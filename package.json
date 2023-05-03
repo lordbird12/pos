@@ -45,6 +45,7 @@
     "moment": "2.29.4",
     "ng-apexcharts": "1.7.1",
     "ng-image-slider": "^6.0.0",
+    "ng2-pdf-viewer": "^9.1.5",
     "ngx-dropzone": "^3.1.0",
     "ngx-image-viewer": "^1.0.13",
     "ngx-markdown": "14.0.1",

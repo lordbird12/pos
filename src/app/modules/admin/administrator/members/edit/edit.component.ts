@@ -93,6 +93,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             department: '',
             status: '',
             transections: this._formBuilder.array([]),
+            ref: [],
         });
     }
 
@@ -117,6 +118,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 department: this.itemData.department,
                 transections: this.itemData.transections,
                 status: this.itemData.status == 'Yes' ? true : false,
+                ref: this.itemData.ref,
             });
         });
     }

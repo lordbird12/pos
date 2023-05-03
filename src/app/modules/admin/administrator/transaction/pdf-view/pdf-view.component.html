@@ -1,0 +1,30 @@
+<div class="flex flex-col w-full mt-6">
+    <div class="flex justify-end gap-4 p-5">
+        <mat-form-field class="w-1/5">
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate [formControl]="start" placeholder="Start date">
+                <input matEndDate [formControl]="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field class="w-1/5">
+            <mat-select [formControl]="create_by" placeholder="แอดมิน">
+                <mat-option value="">All</mat-option>
+                <mat-option *ngFor="let user of users$ | async as users" [value]="user.user_id">
+                    {{user.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-icon-button class="ml-3" (click)="view()">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button class="ml-3" (click)="save()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+
+    <div *ngIf="show">
+        <pdf-viewer class="w-full" [src]="pdfSrc"></pdf-viewer>
+    </div>
+</div>

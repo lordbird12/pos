@@ -283,4 +283,10 @@ export class Service {
     getAdmin() {
         return this._httpClient.get(environment.API_URL + 'api/get_user')
     }
+
+    getUser() {
+        return this._httpClient.get(environment.API_URL + 'api/get_user').pipe(
+            map((resp: any) => resp.data)
+        )
+    }
 }

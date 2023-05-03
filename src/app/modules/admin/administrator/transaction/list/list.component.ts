@@ -286,4 +286,20 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
             dtInstance.ajax.reload();
         });
     }
+
+    viewPdf() {
+        const machine_no = this.machine_no?.value ?? '';
+        const create_by = this.create_by?.value ?? '';
+
+        const start = moment(this.start.value).format("YYYY-MM-DD");
+        const end = moment(this.end.value).format("YYYY-MM-DD");
+
+        this._router.navigate(
+            ['transaction/pdf'],
+            {
+                // queryParams: { start, end, create_by, machine_no },
+                // queryParamsHandling: 'merge'
+            }
+        );
+    }
 }
